@@ -1,11 +1,43 @@
 #! /usr/bin/env python
+import random
+
+def main():
+    ''' main '''
+    arraydd = random_list(5,9)
+    print_list(arraydd)
+    maze = Maze(arraydd)
+    print maze.across_maze()
+
+
+def random_list(start=5, end=5):
+    ''' create list '''
+    row = random.randint(start, end)
+    col = random.randint(start, end)
+    # row, col = 8, 5
+    listdd = []
+    for r in range(0, row):
+        col_list = []
+        for c in range(0, col):
+            col_list.append(random.randint(0, 1))
+        listdd.append(col_list)
+    return listdd
+
+def print_list(array):
+    ''' print list @param [] '''
+    print len(array), len(array[0])
+    for row in array:
+        for col in row:
+            print col,
+        print
 
 class Maze():
     ''' Maze '''
     def __init__(self, maze_list):
         self.maze_list = maze_list
-        halfl = len(self.maze_list) / 2
-        self.__col, self.__row, self.__maze_path = halfl, halfl, [(halfl, halfl)] 
+        half_row = 0 if self.maze_list is None else len(self.maze_list) / 2
+        half_col = 0 if self.maze_list is None or self.maze_list[0] is None else len(self.maze_list[0]) / 2
+        self.__row, self.__col = half_row, half_col
+        self.__maze_path = [(half_row, half_col)]
         # start point is 1
         self.maze_list[self.__row][self.__col] = 1
     
@@ -45,31 +77,4 @@ class Maze():
                         return self.__maze_path
             return self.__maze_path
 
-def main():
-    ''' main '''
-    arraydd = [[0, 1, 1, 1, 1],
-               [0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0],
-               [0, 0, 0, 0, 0],
-               [0, 1, 1, 1, 0]]
-    for row in arraydd:
-        for col in row:
-            print col,
-        print
-    maze = Maze(arraydd)
-    print maze.across_maze()
-
 main()
-'''
-0 1 1 1 1 1 1 1 1 1 1
-0 1 0 1 2 2 1 0 0 0 0
-0 1 1 1 1 1 1 1 1 1 1
-0 1 1 1 1 1 1 1 1 1 1
-0 1 1 1 1 0 0 1 0 0 0
-0 1 0 1 1 0 0 1 1 0 0
-0 1 0 1 0 0 0 0 0 0 0
-0 1 1 1 1 1 1 1 1 1 1
-0 1 1 1 1 0 0 1 0 0 0
-0 1 0 1 1 1 0 1 1 0 0
-0 1 0 1 0 0 0 0 0 0 0
-'''
