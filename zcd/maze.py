@@ -2,7 +2,6 @@
 
 class Maze():
     ''' Maze '''
-
     def __init__(self, maze_list):
         self.maze_list = maze_list
         halfl = len(self.maze_list) / 2
