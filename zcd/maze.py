@@ -3,17 +3,18 @@ import random
 
 def main():
     ''' main '''
-    arraydd = random_list(5,9)
+    arraydd = random_list(5, 9)
     print_list(arraydd)
     maze = Maze(arraydd)
     print maze.across_maze()
+    maze.across_map()
 
 
 def random_list(start=5, end=5):
     ''' create list '''
     row = random.randint(start, end)
     col = random.randint(start, end)
-    # row, col = 8, 5
+    # row, col = 8, 8
     listdd = []
     for r in range(0, row):
         col_list = []
@@ -24,7 +25,7 @@ def random_list(start=5, end=5):
 
 def print_list(array):
     ''' print list @param [] '''
-    print len(array), len(array[0])
+    print len(array), 'x', len(array[0])
     for row in array:
         for col in row:
             print col,
@@ -71,10 +72,26 @@ class Maze():
                     # back
                     self.__maze_path.pop()
                     # update postion
-                    if len(self.__maze_path) > 0:
+                    if self._len_maze_path() > 0:
                         self.__row, self.__col = self.__maze_path[-1]
                     else:
                         return self.__maze_path
             return self.__maze_path
+
+    def _len_maze_path(self):
+        return len(self.__maze_path)
+
+    def across_map(self):
+        ''' print map list '''
+        if self._len_maze_path() > 0:
+            map_list = [] * len(self.maze_list)
+            
+            for point in self.__maze_path:
+                row, col = point
+                map_list[row][col] = 0
+            print_list(map_list)
+        else:
+            print 'block maze'
+
 
 main()
