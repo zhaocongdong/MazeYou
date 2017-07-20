@@ -4,7 +4,7 @@ import random
 
 def main():
     ''' main '''
-    maze = Maze(15, 19)
+    maze = Maze(10, 10)
     maze.print_list()
     print maze.across_maze()
     maze.across_map()
@@ -68,6 +68,10 @@ class Maze(object):
                 self.maze_list[self.__row][self.__col] = 1
                 if is_across:
                     self.__maze_path.append((self.__row, self.__col))
+                    if self._len_maze_path() > 3:
+                        if self._is_neighbor(self.__maze_path[-1], self.__maze_path[-4]):
+                            self.__maze_path.remove(self.__maze_path[-2])
+                            self.__maze_path.remove(self.__maze_path[-2])
                 else:
                     # back
                     self.__maze_path.pop()
@@ -80,6 +84,12 @@ class Maze(object):
 
     def _len_maze_path(self):
         return len(self.__maze_path)
+
+    def _is_neighbor(self, tup1, tup2):
+        x_distance = abs(tup1[0] - tup2[0])
+        y_distance = abs(tup1[1] - tup2[1])
+        is_neighbor = (x_distance == 0 and y_distance == 1) or (x_distance == 1 and y_distance == 0)
+        return is_neighbor
 
     def across_map(self):
         ''' print map list '''
@@ -100,3 +110,26 @@ class Maze(object):
 
 
 main()
+'''
+0 1 0 0 1 0 0 1 0 0
+0 0 0 0 0 0 0 0 0 1
+0 0 0 0 0 1 0 0 1 1
+0 1 1 0 0 1 0 0 0 1
+1 0 1 0 0 0 0 1 0 1
+0 1 1 0 0 1 0 1 1 0
+0 0 1 1 1 1 0 1 0 0
+0 0 0 1 0 1 1 0 1 0
+1 0 1 1 1 1 0 0 0 0
+0 0 1 0 0 1 1 1 1 1
+
+0 0 1 1 1 1 1 0 1 0
+1 1 1 0 0 1 0 1 1 0
+0 1 1 1 1 0 1 0 1 0
+1 0 1 1 1 0 0 0 1 1
+1 1 0 0 1 0 0 0 1 0
+0 1 1 1 0 1 0 1 1 0
+1 0 0 1 0 0 0 0 1 0
+0 1 1 0 0 0 1 1 0 1
+0 0 0 1 0 0 1 1 0 0
+0 0 1 1 0 0 1 0 1 1
+'''
