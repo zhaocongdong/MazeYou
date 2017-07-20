@@ -65,11 +65,10 @@ class Maze(object):
                 else:
                     pass
 
+                self.maze_list[self.__row][self.__col] = 1
                 if is_across:
                     self.__maze_path.append((self.__row, self.__col))
-                    self.maze_list[self.__row][self.__col] = 1
                 else:
-                    self.maze_list[self.__row][self.__col] = 1
                     # back
                     self.__maze_path.pop()
                     # update postion
