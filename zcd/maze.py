@@ -99,10 +99,7 @@ class Maze(object):
         col = len(self.maze_list[0])
         listdd = []
         for r in range(0, row):
-            col_list = []
-            for c in range(0, col):
-                col_list.append(1)
-            listdd.append(col_list)
+            listdd.append([1] * col)
         return listdd
 
 
