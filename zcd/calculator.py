@@ -29,8 +29,11 @@ def calsubexp(exp):
         return calsubexp(exp)
 def clear_bracket(exp=''):
     '''clear bracket'''
+    exp = exp.replace(' ', '')
     print exp
     try:
+        if len(exp.split('(')) != len(exp.split(')')):
+            raise SyntaxError
         localz = exp.find(')')
         if localz == -1:
             return calsubexp(exp)
@@ -45,6 +48,10 @@ def clear_bracket(exp=''):
         return clear_bracket(newexp)
     except ValueError:
         print 'Invailed expression!Please check it again!'
+    except SyntaxError:
+        print 'Invailed expression!Please check brackets:()!'
+    except ZeroDivisionError:
+        print 'ZeroDivisionError!Please check expression:\'/\'!'
 def get_opnum2(extra_exp, op_list):
     ''' get opnum2 '''
     num2 = ''
@@ -52,11 +59,13 @@ def get_opnum2(extra_exp, op_list):
         if index == 0 or char not in op_list:
             num2 = num2 + char
         else:
+            float(num2)
             return num2
+    float(num2)
     return num2
 def calculate(opchar, op1, op2):
     ''' calculate '''
-    if op1[0] == '+' or op2[0] == '+':
+    if op1[0] == '+' or op2[0] == '+' or op1 == '' or op2 == '':
         raise ValueError
     fop1 = float(op1)
     fop2 = float(op2)
@@ -68,5 +77,9 @@ def calculate(opchar, op1, op2):
         return fop1 + fop2
     else:
         return fop1 - fop2
-
-print clear_bracket('-10-1*(2-10*1*2.12-*-1)/(11+4)/+2')
+def main():
+    ''' main '''
+    # myexp = raw_input('Input expression：')
+    myexp = '     ' #'    -10 +-3  -1*(2-10*1*2.12--1)/(11+4)/ 0'
+    print clear_bracket(myexp)
+main()
