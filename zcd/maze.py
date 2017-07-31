@@ -1,12 +1,15 @@
 ''' maze'''
 #! /usr/bin/env python
 import random
-
+import time
 def main():
     ''' main '''
-    maze = Maze(10, 10)
+    maze = Maze(20, 20)
     maze.print_list()
-    print maze.across_maze()
+    func_start_time = time.time()
+    path = maze.across_maze()
+    print time.time() - func_start_time
+    print path
     maze.across_map()
 
 class Maze(object):
