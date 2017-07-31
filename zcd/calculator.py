@@ -80,6 +80,6 @@ def calculate(opchar, op1, op2):
 def main():
     ''' main '''
     # myexp = raw_input('Input expression：')
-    myexp = '     ' #'    -10 +-3  -1*(2-10*1*2.12--1)/(11+4)/ 0'
+    myexp = '1 + 2 * ( (9-25/3 + 328 +10 * 68/4) + (-43)/ (16-32) )' #'    -10 +-3  -1*(2-10*1*2.12--1)/(11+4)/ 0'
     print clear_bracket(myexp)
 main()
